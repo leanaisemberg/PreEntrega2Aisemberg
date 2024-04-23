@@ -1,80 +1,74 @@
-//Preguntas para la función final
+// Informacion de los Pokemones iniciales
+const pokemonInfo = [
+    {id: 1, nombre: 'Bulbasaur', tipo: 'planta', generacion: 1 },
+    {id: 2, nombre: 'Charmander', tipo: 'fuego', generacion: 1 },
+    {id: 3, nombre: 'Squirtle', tipo: 'agua', generacion: 1 },
+    {id: 4, nombre: 'Chikorita', tipo: 'planta', generacion: 2 },
+    {id: 5, nombre: 'Cyndaquil', tipo: 'fuego', generacion: 2 },
+    {id: 6, nombre: 'Totodile', tipo: 'agua', generacion: 2 },
+    {id: 7, nombre: 'Treecko', tipo: 'planta', generacion: 3 },
+    {id: 8, nombre: 'Torchic', tipo: 'fuego', generacion: 3 },
+    {id: 9, nombre: 'Mudkip', tipo: 'agua', generacion: 3 },
+    {id: 10, nombre: 'Pikachu', tipo: 'electrico', generacion: 1 }
+]
 
-let gender = Number(prompt('¿Eres un chico, una chica o no te identificas con ninguno?\n1 Chico\n2 Chica\n3 No me siento identificado con ninguno'));
-let nombre = prompt('¿Cuál es tu nombre?');
-let comida = prompt('¿Cuál es tu comida favorita?');
+// Funcion mostrar lista de pokemones
+function obtenerPokemonLista (array) { 
+    let lista = array.map ((elemento) => elemento.id + '. ' + elemento.nombre).join('\n') 
+    alert("Esta es la lista de pokemones iniciales disponibles:\n" + lista)
+}
 
-//Número del pokemon del 1 al 9, dejando alertas también para los casos donde no completan con los valores requeridos
+// Funcion para obtener pokemon elegido
+function obtenerPokemonNombre(array, objeto1, objeto2) {
+    let nombreParcial = array.filter((elemento) => {
+        return elemento.tipo === objeto1 && elemento.generacion === objeto2
+    }) 
 
-let promptpokemon = 0;
-while (promptpokemon < 1 || promptpokemon > 9) {
-  userInput = prompt('Elige tu pokemon utilizando su número, del 1 al 9');
+    if (nombreParcial.length === 0) {
+        nombreParcial = array.find((elemento) => elemento.id === 10)
+        alert('No has seleccionado ningún pokemon, así que te hemos asignado al pokemon ¡Pikachu!')
+        return nombreParcial.nombre 
+    } else {
+        return nombreParcial[0].nombre 
+    }   
+}
 
-  if (isNaN(userInput)) {
-    alert('¡Ingresa un valor numérico!');
-  } else {
-    promptpokemon = parseInt(userInput);
-    if (promptpokemon < 1 || promptpokemon > 9) {
-      alert('¡Del 1 al 9 te dije!');
+function saludoEntrenador(array) {
+    let genero = Number(prompt('¿Eres un chico, una chica o no te identificas con ninguno?\n1 Chico\n2 Chica\n3 No me siento identificado con ninguno'));
+    let nombreEntrenador = prompt('¿Cuál es tu nombre?');
+    let comida = prompt('¿Cuál es tu comida favorita?');
+
+    obtenerPokemonLista (array)
+
+    let pokemonTipo = prompt('Elegí tu tipo favorito. Los disponibles son:\n- Fuego\n- Agua\n- Planta').toLowerCase()
+    let pokemonGen = Number(prompt('Elegí tu generación favorito (ingresa solo el número). Las disponibles son:\nGeneración 1\nGeneración 2\nGeneración 3'))
+
+    let pokemonNombre = obtenerPokemonNombre (array, pokemonTipo, pokemonGen)
+
+    //Condicionales Easter Egg
+    if (nombreEntrenador.length === 0) {
+        nombreEntrenador = 'Ash'
     }
-  }
-}
-let nropokemon = parseInt(promptpokemon);
-
-//Se le asigna el nombre al pokemon usando el número que ingresaron
-
-let pokemonName;
-switch (nropokemon) {
-  case 1:
-    pokemonName = 'Bulbasaur';
-    break;
-  case 2:
-    pokemonName = 'Ivysaur';
-    break;
-  case 3:
-    pokemonName = 'Venusaur';
-    break;
-  case 4:
-    pokemonName = 'Charmander';
-    break;
-  case 5:
-    pokemonName = 'Charmeleon';
-    break;
-  case 6:
-    pokemonName = 'Charizard';
-    break;
-  case 7:
-    pokemonName = 'Squirtle';
-    break;
-  case 8:
-    pokemonName = 'Wartortle';
-    break;
-  case 9:
-    pokemonName = 'Blastoise';
-    break;
-  default:
-    pokemonName = 'Pikachu';
+        
+    if (comida.length === 0) {
+        comida = 'Paleta'
+    }
+    
+    //Función donde se conjugan todos los datos para saludar al usuario y se le informa de su pokemon elegido
+    if (genero === 1) {
+      alert('¡Hola, entrenador ' + nombreEntrenador + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonNombre + '.');
+    } else if (genero === 2) {
+      alert('¡Hola, entrenadora ' + nombreEntrenador + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonNombre + '.');
+    } else {
+      alert('Te damos la bienvenida, ' + nombreEntrenador + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonNombre + '.');
+    }
 }
 
-//Condicionales Easter Egg
-if (nombre.length === 0) {
-  nombre = 'Ash'
-}
+saludoEntrenador(pokemonInfo);
 
-if (comida.length === 0) {
-  comida = 'Paleta'
-}
 
-//Función donde se conjugan todos los datos para saludar al usuario y se le informa de su pokemon elegido
 
-function saludarEntrenador() {
-  if (gender === "1") {
-    alert('¡Hola, entrenador ' + nombre + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonName + '.');
-  } else if (gender === "2") {
-    alert('¡Hola, entrenadora ' + nombre + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonName + '.');
-  } else {
-    alert('Te damos la bienvenida, ' + nombre + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonName + '.');
-  }
-}
 
-saludarEntrenador();
+
+
+
