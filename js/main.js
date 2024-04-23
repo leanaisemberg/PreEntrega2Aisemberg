@@ -9,7 +9,6 @@ const pokemonInfo = [
     {id: 7, nombre: 'Treecko', tipo: 'planta', generacion: 3 },
     {id: 8, nombre: 'Torchic', tipo: 'fuego', generacion: 3 },
     {id: 9, nombre: 'Mudkip', tipo: 'agua', generacion: 3 },
-    {id: 10, nombre: 'Pikachu', tipo: 'electrico', generacion: 1 }
 ]
 
 // Funcion mostrar lista de pokemones
@@ -23,16 +22,18 @@ function obtenerPokemonNombre(array, objeto1, objeto2) {
     let nombreParcial = array.filter((elemento) => {
         return elemento.tipo === objeto1 && elemento.generacion === objeto2
     }) 
-
+    
+    // En caso que no ingrese nada o algo incorrecto, se desbloquea un Easter Egg
     if (nombreParcial.length === 0) {
-        nombreParcial = array.find((elemento) => elemento.id === 10)
-        alert('No has seleccionado ningún pokemon, así que te hemos asignado al pokemon ¡Pikachu!')
-        return nombreParcial.nombre 
+        nombreParcial = 'Pikachu'
+        alert('No has seleccionado ningún pokemon, así que te hemos asignado al pokemon secreto ¡Pikachu!')
+        return nombreParcial
     } else {
         return nombreParcial[0].nombre 
     }   
 }
 
+// Funcion para saludar al entrenador y que ingrese sus datos
 function saludoEntrenador(array) {
     let genero = Number(prompt('¿Eres un chico, una chica o no te identificas con ninguno?\n1 Chico\n2 Chica\n3 No me siento identificado con ninguno'));
     let nombreEntrenador = prompt('¿Cuál es tu nombre?');
@@ -45,7 +46,7 @@ function saludoEntrenador(array) {
 
     let pokemonNombre = obtenerPokemonNombre (array, pokemonTipo, pokemonGen)
 
-    //Condicionales Easter Egg
+    // Condicionales Easter Egg
     if (nombreEntrenador.length === 0) {
         nombreEntrenador = 'Ash'
     }
@@ -54,7 +55,7 @@ function saludoEntrenador(array) {
         comida = 'Paleta'
     }
     
-    //Función donde se conjugan todos los datos para saludar al usuario y se le informa de su pokemon elegido
+    // Condicional donde se conjugan todos los datos para seleccionar el saludo al entrenador y se le informa de su pokemon elegido
     if (genero === 1) {
       alert('¡Hola, entrenador ' + nombreEntrenador + ' de pueblo ' + comida + '!' + ' Has elegido a ' + pokemonNombre + '.');
     } else if (genero === 2) {
