@@ -16,7 +16,7 @@ body {
   background-color: #0C1317;
   color: white;
   text-align: center;
-  padding-top: 30rem;
+  padding-top: 20rem;
   
 }
 
@@ -46,6 +46,20 @@ h2 {
   border: none;
   cursor: pointer;
   margin: 2rem 0.5rem 2rem 0.5rem;
+}
+
+.alert {
+  font-size: 1.5rem;
+  color:#007bff;
+  background-color: #fff;
+}
+
+.btn-alert {
+  font-size: 2rem;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 }
 
 .card-img-top {
@@ -133,4 +147,8 @@ h2 {
 
 .modal-buttons button {
   margin: 10px;
+}
+
+footer {
+  font-size: 1.5rem;
 }
